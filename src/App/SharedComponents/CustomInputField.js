@@ -13,7 +13,7 @@ class CustomInputField extends React.Component {
     let error = this.validateError(field, event.target.value);
     this.setState({
       value: event.target.value,
-      error: error
+      error
     });
   }
 
@@ -25,12 +25,7 @@ class CustomInputField extends React.Component {
   }
 
   validateError(field, val) {
-    if (field.isRequired && val.length === 0) {
-      return true;
-    }
-    else {
-      return false;
-    }
+    return field.isRequired && val.length === 0;
   }
 
   render() {

@@ -1,5 +1,5 @@
 import React from 'react';
-import * as data from 'data.js'
+import * as REGISTRATION_FORM from 'data.js'
 import CustomInputField from 'App/SharedComponents/CustomInputField.js';
 
 class RegistrationForm extends React.Component {
@@ -16,7 +16,7 @@ class RegistrationForm extends React.Component {
 
   canBeSubmitted() {
     let formElements = this.formRef.current.elements;
-    let isSubmit = Object.values(data.formFields).every(field => {
+    let isSubmit = Object.values(REGISTRATION_FORM.formFields).every(field => {
       if (field.isRequired) {
         return formElements.namedItem(field.name).value.length > 0 ? true : false
       }
@@ -30,21 +30,14 @@ class RegistrationForm extends React.Component {
   submitHandler(event) {
     event.preventDefault();
     let canSubmit = this.canBeSubmitted();
-    if (canSubmit) {
       this.setState({
-        isSubmit: true,
+        isSubmit: canSubmit,
       })
-    }
-    else {
-      this.setState({
-        isSubmit: false,
-      })
-    }
   }
 
   getFormFields() {
     return (
-      Object.values(data.formFields).map(field => (
+      Object.values(REGISTRATION_FORM.formFields).map(field => (
         <div key={field.label} className="mt-10">
           <label htmlFor={field.name}>
             {field.isRequired ? `${field.label}*` : field.label}
@@ -61,7 +54,7 @@ class RegistrationForm extends React.Component {
     let formElements = this.formRef.current.elements
     return (
       <div>
-        {Object.values(data.formFields).map(field =>
+        {Object.values(REGISTRATION_FORM.formFields).map(field =>
           <p key={field.name}>{field.name}: {formElements.namedItem(field.name).value}</p>
         )}
       </div>
